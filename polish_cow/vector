@@ -1,0 +1,17 @@
+#pragma once
+#ifndef MY_VECTOR
+#define MY_VECTOR
+
+namespace dl {
+	class vector {
+
+	};
+
+	class vec3i {
+
+	};
+}
+
+#endif // !MY_VECTOR
+
+

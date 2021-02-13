@@ -1,0 +1,28 @@
+#pragma once
+#ifndef MY_ARRAY
+#define MY_ARRAY
+
+namespace dl {
+	template <class T, size_t _size>
+	class array {
+	public:
+		array(std::initializer_list<T> a) {
+			for (int i = 0; i < _size; i++)
+				data[i] = *(a.begin() + i);
+		}
+		constexpr size_t size() {
+			return _size;
+		}
+		T operator[](int pos) {
+			if (pos >= 0 && pos < _size)
+				return data[pos];
+			else
+				throw "bad index";
+		}
+	private:
+		T data[_size];
+	};
+}
+
+#endif // !MY_ARRAY
+
