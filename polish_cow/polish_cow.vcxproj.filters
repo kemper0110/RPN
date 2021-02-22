@@ -18,14 +18,8 @@
     <ClCompile Include="polish_cow.cpp">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="RPN.h">
-      <Filter>Файлы заголовков</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="vector">
-      <Filter>Файлы заголовков</Filter>
-    </ClInclude>
     <ClInclude Include="stack">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
@@ -36,6 +30,9 @@
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
     <ClInclude Include="math.h">
+      <Filter>Файлы заголовков</Filter>
+    </ClInclude>
+    <ClInclude Include="polish_utility.h">
       <Filter>Файлы заголовков</Filter>
     </ClInclude>
   </ItemGroup>

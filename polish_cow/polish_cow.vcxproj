@@ -141,14 +141,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="polish_cow.cpp" />
-    <ClCompile Include="RPN.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="array" />
+    <ClInclude Include="polish_utility.h" />
     <ClInclude Include="list.h" />
     <ClInclude Include="math.h" />
     <ClInclude Include="stack" />
-    <ClInclude Include="vector" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -6,42 +6,58 @@ namespace dl {
 	template <class T>
 	class stack {
 	public:
-		stack(){
-
+		stack() {}
+		stack(std::initializer_list<T> list) {
+			for (int i = 0; i < list.size(); i++)
+				push(list.begin()[i]);
 		}
-		stack(std::initializer_list<T> a) {
-			for (int i = 0; i < a.size(); i++) 
-				push(a.begin()[i]);
+
+		const size_t& size = _size;
+
+		bool empty() {
+			return !_size;
 		}
 		void push(T value) {
-			if (_start != nullptr) {
-				_top = new unit;
-				
+			Node* now;
+			now = new Node{ value };
+			if (Top == nullptr) {
+				Top = now;
 			}
 			else {
-				_start = new unit;
-				_top = _start;
-				_start->value = value;
+				now->next = Top;
+				Top = now;
 			}
-
 			_size++;
 		}
+		T pop() {
+			Node* now = Top;
+			Top = now->next;
+			T value = now->value;
+			delete now;
+			_size--;
+			return value;
+		}
+		void jpop() {
+			Node* now = Top;
+			Top = now->next;
+			delete now;
+			_size--;
+		}
 		T top() {
-			return _top->value;
+			return Top->value;
 		}
-		bool empty() {
-			return !(int)_size;
+		T peek(int depth = 0) {
+			Node* now = Top;
+			for (int i = 0; i < depth && i < _size; i++)
+				now = now->next;
+			return now->value;
 		}
-		void pop();
-		size_t size() {
-			return _size;
-		}
-		//void reverse();
 	private:
-		struct unit { T value; unit* next = nullptr; unit* prev = nullptr; };
+		struct Node {
+			T value{};
+			Node* next = nullptr;
+		} *Top = nullptr;
 		size_t _size = 0;
-		unit* _start = nullptr;
-		unit* _top = nullptr;
 	};
 }
 
