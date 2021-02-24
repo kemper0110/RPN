@@ -7,17 +7,17 @@
 #include <iostream>
 
 
-size_t isNumber(char* str_begin, char* str_end, double& num);	
-double solveBackPolish(std::string str);
-std::string toPolish(std::string str);
+size_t isNumber(const char* str_begin, const char* str_end, double& num);
+double solveBackPolish(const std::string str);
+std::string toPolish(const std::string str);
 
-double operator_calcuation(double num1, double num2, char op);
-bool isOperator(char op);
-int getPriority(char op);
+double operator_calcuation(const double num1, const double num2, const char op);
+bool isOperator(const char op);
+int getPriority(const char op);
 
 
 
-size_t isNumber(char* str_begin, char* str_end, double& num) {
+size_t isNumber(const char* str_begin, const char* str_end, double& num) {
 	num = 0;
 	bool pastPoint = false;
 	size_t afterPoint = 0;
@@ -39,11 +39,11 @@ size_t isNumber(char* str_begin, char* str_end, double& num) {
 }
 
 
-double solveBackPolish(std::string str) {
+double solveBackPolish(const std::string str) {
 	std::stack <double> nums;
 	size_t i = 0;
 	while (i < str.length()) {
-		if (str[i] == ' ') {
+		if (str[i] == ' ' || str[i] == 0) {
 			i++;
 			continue;
 		}
@@ -66,8 +66,13 @@ double solveBackPolish(std::string str) {
 }
 
 
-std::string toPolish(std::string str) {
+std::string toPolish(const std::string str) {
+	//std::queue <char> out;
 	std::string out;
+	//out.reserve(str.length() * 3 / 2);  // 998
+	// without // 947 // 42
+	//out.reserve(str.length() * 5 / 4); // 963
+	out.reserve(str.length()); //  932
 	std::stack <char> signs;
 
 	size_t i = 0;
@@ -86,6 +91,10 @@ std::string toPolish(std::string str) {
 		if (len > 0) {
 			out += ' ';
 			out += std::to_string(num);
+			//out.push(' ');
+			//std::string str_num = std::to_string(num);
+			//for (int i = 0; i < str_num.length(); i++)
+			//	out.push(str_num[i]);
 			i += len;
 			continue;
 		}
@@ -102,9 +111,11 @@ std::string toPolish(std::string str) {
 			// это означает, что в выражении либо неверно поставлен разделитель, либо не согласованы скобки.
 			while (signs.top() != '(') {
 				if (signs.empty())
-					throw "end bracket not found or dividor error";
+					throw "end bracket not found or separator error";
 				out += ' ';
 				out += signs.top();
+				//out.push(' ');
+				//out.push(signs.top());
 				signs.pop();
 			}
 			signs.pop();
@@ -118,6 +129,8 @@ std::string toPolish(std::string str) {
 			while ( !signs.empty() && getPriority(signs.top()) >= getPriority(c) ) {
 				out += ' ';
 				out += signs.top();
+				//out.push(' ');
+				//out.push(signs.top());
 				signs.pop();
 			}
 			//	2) помещаем операцию o1 в стек.
@@ -128,8 +141,18 @@ std::string toPolish(std::string str) {
 	while (!signs.empty()) {
 		out += ' ';
 		out += signs.top();
+		//out.push(' ');
+		//out.push(signs.top());
 		signs.pop();
 	}
+	/*std::string out_str;
+	out_str.resize(out.size());
+	while (!out.empty()) {
+		out_str += out.front();
+		out.pop();
+	}
+	return out_str;*/
+	//std::cout << "size: " << out.length() << std::endl;
 	return out;
 }
 
@@ -137,23 +160,23 @@ std::string toPolish(std::string str) {
 
 // GOOD
 
-int getPriority(char op) {
-	char operators[7] = { '(', ')', '+', '-', '*', '/', '^' };
-	int priority[7] = { 0, 0, 1, 1, 2, 2, 3 };
+int getPriority(const char op) {
+	constexpr char operators[7] = { '(', ')', '+', '-', '*', '/', '^' };
+	constexpr int priority[7] = { 0, 0, 1, 1, 2, 2, 3 };
 	for (int i = 0; i < 7; i++)
 		if (operators[i] == op)
 			return priority[i];
 	return -1;
 }
 
-bool isOperator(char op) {
+bool isOperator(const char op) {
 	if (op == '-' || op == '+' || op == '*' || op == '/' || op == '^')
 		return true;
 	return false;
 }
 
 
-double operator_calcuation(double num1, double num2, char op) {
+double operator_calcuation(const double num1, const double num2, const char op) {
 	switch (op)
 	{
 	case '+':

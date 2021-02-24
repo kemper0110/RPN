@@ -3,27 +3,36 @@
 #include <map>
 #include <string>
 #include <chrono>
+#include <Windows.h>
 #include "stack"
 #include "polish_utility.h"
 
+long long perfomance_test(const std::string expr, const int count);
+void 🧠();
+void 🐔();
+void 🐣();
+void 👣();
 
 int main()
 {
 	std::cout.precision(5);
-	std::string expr2 = "( (3 + 7) * 9 - 2 / 2 + 9 * 1 + 1 ^ 5) / ( 1 + 6 / 2 - 1 + 6 / (2 - 1) )";
-	//std::string expr1 = "1 + 2 * 3";
-	////std::string polish = "3.000000 7.000000 + 9.000000 * 2.000000 2.000000 / - 9.000000 1.000000 * + 1.000000 5.000000 ^ + 1.000000 6.000000 2.000000 / + 1.000000 - 6.000000 2.000000 1.000000 - / + /";
-	//
-	//std::cout << solveBackPolish( toPolish(expr2) );
-	dl::stack<int> x;
+	const std::string expr1 = "( (3 + 7) * 9 - 2 / 2 + 9 * 1 + 2 ^ 3 + 2) / ( 1 + 6 / 2 - 1 + 6 / (2 - 1) ) "; // = 108 / 9 = 12
 
+	//perfomance_test(expr1, 3000);
+	std::cout << solveBackPolish( toPolish(expr1) );
+
+}
+
+long long perfomance_test(const std::string expr, const int count) {
 	// PERFOMANCE TEST
+	Sleep(500);
 	const int size = 10;
 	int time[size];
+
 	for (int j = 0; j < size; j++) {
 		auto start = std::chrono::steady_clock::now();
-		for (int i = 0; i < 3000; i++) {
-			std::string polish = toPolish(expr2);
+		for (int i = 0; i < count; i++) {
+			std::string polish = toPolish(expr);
 			double answer = solveBackPolish(polish);
 		}
 		auto stop = std::chrono::steady_clock::now();
@@ -36,12 +45,13 @@ int main()
 	std::cout << "average = " << (float)sum / size << std::endl;
 	// PERFOMANCE TEST
 
+	// expr = "( (3 + 7) * 9 - 2 / 2 + 9 * 1 + 2 ^ 3 + 2) / ( 1 + 6 / 2 - 1 + 6 / (2 - 1) )"
+	// count = 3k
 	// string.substr() 2347
 	// string::iterator  3763
 	// char* 914
+	return sum / size;
 }
-
-
 
 
 //
