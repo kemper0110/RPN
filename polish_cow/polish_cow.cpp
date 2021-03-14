@@ -4,54 +4,67 @@
 #include <string>
 #include <chrono>
 #include <Windows.h>
-#include "stack"
+#include <sstream>
+#include <memory>
+#include "IMathObject.h"
+#include "Factories.h"
 #include "polish_utility.h"
+#include <corecrt_math_defines.h>
 
-long long perfomance_test(const std::string expr, const int count);
 void 🧠();
 void 🐔();
 void 🐣();
 void 👣();
+
 
 int main()
 {
 	std::cout.precision(5);
 	const std::string expr1 = "( (3 + 7) * 9 - 2 / 2 + 9 * 1 + 2 ^ 3 + 2) / ( 1 + 6 / 2 - 1 + 6 / (2 - 1) ) "; // = 108 / 9 = 12
 
-	//perfomance_test(expr1, 3000);
-	std::cout << solveBackPolish( toPolish(expr1) );
+	//std::string expr = "(3 + 7) * 9 - 2 / 2";
+	Solver solver;
+	auto start = std::chrono::steady_clock::now();
+	for(int i = 0; i < 3000; i++)
+		double ans = solver.solve(expr1);
+	auto stop = std::chrono::steady_clock::now();
+	std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
 
+	// 1190
+	//std::cout << ans;
 }
-
-long long perfomance_test(const std::string expr, const int count) {
-	// PERFOMANCE TEST
-	Sleep(500);
-	const int size = 10;
-	int time[size];
-
-	for (int j = 0; j < size; j++) {
-		auto start = std::chrono::steady_clock::now();
-		for (int i = 0; i < count; i++) {
-			std::string polish = toPolish(expr);
-			double answer = solveBackPolish(polish);
-		}
-		auto stop = std::chrono::steady_clock::now();
-		time[j] = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
-		std::cout << time[j] << std::endl;
-	}
-	int sum = 0;
-	for (int i = 0; i < size; i++)
-		sum += time[i];
-	std::cout << "average = " << (float)sum / size << std::endl;
-	// PERFOMANCE TEST
-
-	// expr = "( (3 + 7) * 9 - 2 / 2 + 9 * 1 + 2 ^ 3 + 2) / ( 1 + 6 / 2 - 1 + 6 / (2 - 1) )"
-	// count = 3k
-	// string.substr() 2347
-	// string::iterator  3763
-	// char* 914
-	return sum / size;
-}
+//
+//long long perfomance_test(const std::string expr, const int count) {
+//	// PERFOMANCE TEST
+//	Sleep(500);
+//	const int size = 10;
+//	int time[size];
+//
+//	for (int j = 0; j < size; j++) {
+//		auto start = std::chrono::steady_clock::now();
+//		for (int i = 0; i < count; i++) {
+//
+//			std::vector<IMathObject*> polish = toPolish(ar);
+//			double answer = solveBackPolish(polish);
+//
+//		}
+//		auto stop = std::chrono::steady_clock::now();
+//		time[j] = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start).count();
+//		std::cout << time[j] << std::endl;
+//	}
+//	int sum = 0;
+//	for (int i = 0; i < size; i++)
+//		sum += time[i];
+//	std::cout << "average = " << (float)sum / size << std::endl;
+//	// PERFOMANCE TEST
+//
+//	// expr = "( (3 + 7) * 9 - 2 / 2 + 9 * 1 + 2 ^ 3 + 2) / ( 1 + 6 / 2 - 1 + 6 / (2 - 1) )"
+//	// count = 3k
+//	// string.substr() 2347
+//	// string::iterator  3763
+//	// char* 914
+//	return sum / size;
+//}
 
 
 //

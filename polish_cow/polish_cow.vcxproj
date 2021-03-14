@@ -88,6 +88,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,12 +142,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="polish_cow.cpp" />
+    <ClCompile Include="polish_utility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="array" />
+    <ClInclude Include="Factories.h" />
+    <ClInclude Include="IMathObject.h" />
+    <ClInclude Include="OperatorStatus.h" />
     <ClInclude Include="polish_utility.h" />
-    <ClInclude Include="list.h" />
-    <ClInclude Include="math.h" />
+    <ClInclude Include="SmartArray.h" />
     <ClInclude Include="stack" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
